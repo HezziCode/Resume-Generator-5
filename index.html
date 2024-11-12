@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.H Resume Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="form-container">
+            <h1 id="main-heading">Resume Generator</h1>
+            <form id="resume-form">
+                <div class="form-section" id="personal-info">
+                    <h2>Personal Information</h2>
+                    <div class="input-group">
+                        <i data-feather="user"></i>
+                        <input type="text" id="name" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="mail"></i>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="phone"></i>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone" required>
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="map-pin"></i>
+                        <input type="text" id="location" name="location" placeholder="Location" required>
+                    </div>
+                </div>
+                <div class="form-section" id="experience-education">
+                    <h2>Experience & Education</h2>
+                    <div class="input-group">
+                        <i data-feather="briefcase"></i>
+                        <textarea id="experience" name="experience" placeholder="Work Experience" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="book"></i>
+                        <textarea id="education" name="education" placeholder="Education" required></textarea>
+                    </div>
+                </div>
+                <div class="form-section" id="skills-photo">
+                    <h2>Skills & Photo</h2>
+                    <div class="input-group">
+                        <i data-feather="code"></i>
+                        <textarea id="skills" name="skills" placeholder="Skills (comma-separated)" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="image"></i>
+                        <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+                        <label for="profile-picture" class="file-label">Choose a file</label>
+                    </div>
+                </div>
+                <button type="submit" id="generate-resume">Generate Resume</button>
+            </form>
+        </div>
+        <div id="resume-container" class="hidden">
+            <div id="resume-content">
+                <div id="resume-header">
+                    <div id="resume-personal-info">
+                        <h2 id="resume-name"></h2>
+                        <p id="resume-contact"></p>
+                        <p id="resume-location"></p>
+                    </div>
+                    <img id="resume-picture" alt="Profile Picture">
+                </div>
+                <div id="resume-body">
+                    <div id="resume-main">
+                        <div id="resume-experience">
+                            <h3><i data-feather="briefcase"></i> Work Experience</h3>
+                            <p id="resume-experience-content"></p>
+                        </div>
+                        <div id="resume-education">
+                            <h3><i data-feather="book"></i> Education</h3>
+                            <p id="resume-education-content"></p>
+                        </div>
+                    </div>
+                    <div id="resume-sidebar">
+                        <div id="resume-skills">
+                            <h3><i data-feather="code"></i> Skills</h3>
+                            <ul id="resume-skills-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="resume-actions">
+                <button id="download-pdf"><i data-feather="download"></i> Download PDF</button>
+                <button id="share-resume"><i data-feather="share-2"></i> Share Resume</button>
+                <button id="edit-resume"><i data-feather="edit"></i> Edit Resume</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

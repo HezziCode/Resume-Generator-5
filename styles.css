@@ -1,0 +1,309 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --background-color: #ecf0f1;
+    --text-color: #2c3e50;
+    --light-text-color: #7f8c8d;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.form-section {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.input-group i {
+    margin-right: 1rem;
+    color: var(--secondary-color);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-text-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none;
+}
+
+#resume-container {
+    background-color: #ffffff;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-out;
+}
+
+#resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#resume-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    transition: transform 0.3s ease;
+}
+
+#resume-picture:hover {
+    transform: scale(1.05);
+}
+
+#resume-name {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+#resume-contact, #resume-location {
+    color: var(--light-text-color);
+}
+
+#resume-body {
+    display: flex;
+    gap: 2rem;
+}
+
+#resume-main {
+    flex: 2;
+}
+
+#resume-sidebar {
+    flex: 1;
+}
+
+#resume-experience, #resume-education, #resume-skills {
+    margin-bottom: 2rem;
+}
+
+#resume-experience h3, #resume-education h3, #resume-skills h3 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+#resume-experience h3 i, #resume-education h3 i, #resume-skills h3 i {
+    margin-right: 0.5rem;
+    color: var(--accent-color);
+}
+
+#resume-skills-list {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+#resume-skills-list li {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+#resume-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#resume-actions button {
+    display: flex;
+    align-items: center;
+}
+
+#resume-actions button i {
+    margin-right: 0.5rem;
+}
+
+.file-label {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: var(--secondary-color);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    #resume-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #resume-picture {
+        margin-bottom: 1rem;
+    }
+
+    #resume-body {
+        flex-direction: column;
+    }
+
+    #resume-actions {
+        flex-wrap: wrap;
+    }
+
+    #resume-actions button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .form-section {
+        padding: 1rem;
+    }
+
+    input, textarea, button {
+        font-size: 0.9rem;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #resume-container, #resume-container * {
+        visibility: visible;
+    }
+    #resume-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+    }
+    #resume-actions {
+        display: none;
+    }
+}
+
