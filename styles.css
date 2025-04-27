@@ -7,6 +7,9 @@
     --light-text-color: #7f8c8d;
     --success-color: #2ecc71;
     --error-color: #e74c3c;
+    --border-color: #dcdfe6;
+    --tip-color: #7f8c8d;
+    --highlight-color: #f1c40f;
 }
 
 * {
@@ -36,8 +39,73 @@ h1, h2, h3 {
 h1 {
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     animation: fadeInDown 0.8s ease-out;
+    color: var(--primary-color);
+}
+
+.tagline {
+    text-align: center;
+    color: var(--light-text-color);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    animation: fadeIn 1s ease-out;
+}
+
+.progress-container {
+    margin-bottom: 2rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--accent-color);
+    width: 25%; /* Will be updated by JS - 25% for 4 steps */
+    transition: width 0.3s ease;
+}
+
+.step-indicators {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: var(--light-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step.active {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.step.completed {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.form-step {
+    animation: fadeIn 0.5s ease-out;
 }
 
 .form-section {
@@ -57,22 +125,49 @@ h1 {
 
 .input-group {
     display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
 }
 
 .input-group i {
     margin-right: 1rem;
     color: var(--secondary-color);
+    margin-top: 0.75rem;
+}
+
+.input-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-description {
+    color: var(--light-text-color);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.input-tip {
+    font-size: 0.85rem;
+    color: var(--tip-color);
+    margin-top: 0.3rem;
+    font-style: italic;
+}
+
+.word-count {
+    font-size: 0.85rem;
+    color: var(--light-text-color);
+    margin-top: 0.5rem;
+    text-align: right;
 }
 
 input, textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid var(--light-text-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 input:focus, textarea:focus {
@@ -81,9 +176,70 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
+input.invalid, textarea.invalid {
+    border-color: var(--error-color);
+    background-color: rgba(231, 76, 60, 0.05);
+}
+
+input.valid, textarea.valid {
+    border-color: var(--success-color);
+    background-color: rgba(46, 204, 113, 0.05);
+}
+
 textarea {
     min-height: 100px;
     resize: vertical;
+}
+
+.date-range {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.current-job, .current-education {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-left: 2.5rem;
+}
+
+.current-job label, .current-education label {
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.bullet-points-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.bullet-points-container h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.bullet-point {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.bullet-point i {
+    color: var(--success-color);
+    margin-right: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.skills-section {
+    margin-bottom: 2rem;
+}
+
+.skills-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
 }
 
 button {
@@ -95,12 +251,74 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 button:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background-color: var(--light-text-color);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.prev-btn {
+    background-color: #fff;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+.prev-btn:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.next-btn, .submit-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.next-btn::after {
+    content: "→";
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.add-btn {
+    background-color: #fff;
+    color: var(--accent-color);
+    border: 1px dashed var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+}
+
+.add-btn i {
+    margin-right: 0.5rem;
+}
+
+.add-btn:hover {
+    background-color: var(--accent-color);
+    color: #fff;
 }
 
 .hidden {
@@ -113,6 +331,16 @@ button:hover {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.8s ease-out;
+    max-width: 1000px;
+    margin: 0 auto;
+    /* Ensure proper rendering for PDF */
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #000000; /* Use pure black for better contrast */
+    line-height: 1.5;
+    font-size: 14px;
+    font-weight: 500; /* Slightly bolder text for better visibility */
+    -webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+    print-color-adjust: exact !important; /* Firefox */
 }
 
 #resume-header {
@@ -120,15 +348,55 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+#resume-social-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: white;
+    margin-right: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.social-link i {
+    width: 16px;
+    height: 16px;
+}
+
+#resume-objective-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 #resume-picture {
-    width: 150px;
-    height: 150px;
+    width: 220px;
+    height: 220px;
     object-fit: cover;
     border-radius: 50%;
     border: 3px solid var(--accent-color);
     transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Hide by default, will be shown when image is loaded */
 }
 
 #resume-picture:hover {
@@ -136,13 +404,66 @@ button:hover {
 }
 
 #resume-name {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: #000000; /* Pure black for better PDF rendering */
+    font-weight: 700; /* Bolder for better visibility */
+}
+
+#resume-job-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #0066cc; /* Darker blue for better visibility in PDF */
+    font-weight: 600; /* Bolder for better visibility */
 }
 
 #resume-contact, #resume-location {
     color: var(--light-text-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+#resume-summary {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#resume-summary h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+#resume-summary-content {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+#resume-highlights {
+    padding-left: 1.5rem;
+}
+
+#resume-highlights li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+#resume-highlights li::before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    position: absolute;
+    left: -1rem;
 }
 
 #resume-body {
@@ -162,37 +483,236 @@ button:hover {
     margin-bottom: 2rem;
 }
 
-#resume-experience h3, #resume-education h3, #resume-skills h3 {
+#resume-experience h3, #resume-education h3, #resume-skills h3,
+#resume-projects-section h3, #resume-certifications-section h3 {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    color: #000000; /* Pure black for better PDF rendering */
+    font-size: 1.3rem;
+    font-weight: 700; /* Bolder for better visibility */
+    border-bottom: 2px solid #0066cc; /* Add border for better section separation */
+    padding-bottom: 5px;
+}
+
+#resume-experience h3 i, #resume-education h3 i, #resume-skills h3 i,
+#resume-projects-section h3 i, #resume-certifications-section h3 i {
+    margin-right: 0.5rem;
+    color: #0066cc; /* Darker blue for better visibility */
+}
+
+.experience-item, .education-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.experience-item:last-child, .education-item:last-child {
+    border-bottom: none;
+}
+
+.experience-header, .education-header {
+    margin-bottom: 0.5rem;
+}
+
+.experience-title, .education-degree {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.experience-company, .education-institution {
     color: var(--secondary-color);
 }
 
-#resume-experience h3 i, #resume-education h3 i, #resume-skills h3 i {
-    margin-right: 0.5rem;
-    color: var(--accent-color);
+.experience-date, .education-date {
+    color: var(--light-text-color);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 }
 
-#resume-skills-list {
+.experience-achievements {
+    padding-left: 1.5rem;
+}
+
+.experience-achievements li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.experience-achievements li::before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    position: absolute;
+    left: -1rem;
+}
+
+.experience-description {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.experience-technologies {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.tech-label {
+    font-weight: 600;
+}
+
+.education-details {
+    color: var(--text-color);
+    margin-top: 0.5rem;
+}
+
+.education-description {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+#resume-certifications-section,
+#resume-projects-section,
+#resume-additional-info-section {
+    margin-top: 2rem;
+}
+
+.certifications-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.certifications-list li {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dotted var(--border-color);
+}
+
+.certifications-list li:last-child {
+    border-bottom: none;
+}
+
+.cert-name {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.cert-issuer, .cert-date {
+    color: var(--light-text-color);
+    font-size: 0.9rem;
+}
+
+.cert-link {
+    color: var(--accent-color);
+    margin-left: 0.5rem;
+}
+
+.cert-link:hover {
+    color: var(--secondary-color);
+}
+
+.cert-link-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.project-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-item:last-child {
+    border-bottom: none;
+}
+
+.project-header {
+    margin-bottom: 0.5rem;
+}
+
+.project-name {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+.project-name a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.project-name a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.project-type {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.project-description {
+    color: var(--text-color);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.skills-list {
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
-#resume-skills-list li {
+.skills-list li {
     background-color: var(--accent-color);
     color: #fff;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 4px;
     font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.skills-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#resume-technical-skills-list li {
+    background-color: var(--accent-color);
+}
+
+#resume-soft-skills-list li {
+    background-color: var(--secondary-color);
+}
+
+#resume-languages-list li {
+    background-color: var(--primary-color);
+}
+
+#resume-awards-content {
+    line-height: 1.6;
 }
 
 #resume-actions {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
@@ -203,6 +723,85 @@ button:hover {
 
 #resume-actions button i {
     margin-right: 0.5rem;
+}
+
+#next-steps {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+
+#next-steps h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+#next-steps ul {
+    padding-left: 1.5rem;
+}
+
+#next-steps li {
+    margin-bottom: 0.5rem;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--light-text-color);
+}
+
+.close-modal:hover {
+    color: var(--error-color);
+}
+
+.skill-categories {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#plain-text-content {
+    width: 100%;
+    height: 300px;
+    margin: 1rem 0;
+    padding: 1rem;
+    font-family: monospace;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+#copy-plain-text {
+    margin-top: 1rem;
 }
 
 .file-label {
@@ -220,8 +819,66 @@ button:hover {
     background-color: var(--secondary-color);
 }
 
+.file-name-display {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-style: italic;
+    padding: 0.25rem 0;
+}
+
 input[type="file"] {
     display: none;
+}
+
+/* Loading indicator for PDF generation */
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Special styles for PDF printing */
+body.printing-pdf a {
+    color: var(--accent-color) !important;
+    text-decoration: underline !important;
+}
+
+body.printing-pdf .project-link {
+    color: var(--accent-color) !important;
+    text-decoration: underline !important;
+}
+
+body.printing-pdf .social-link {
+    background-color: var(--accent-color) !important;
+    color: white !important;
 }
 
 @keyframes fadeIn {
@@ -301,9 +958,69 @@ input[type="file"] {
         top: 0;
         width: 100%;
         box-shadow: none;
+        font-size: 90%; /* Slightly reduce font size for PDF */
     }
     #resume-actions {
         display: none;
+    }
+
+    /* Hide date/time when printing */
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+
+    /* Hide browser-generated headers and footers */
+    @page :first {
+        margin-top: 0;
+    }
+
+    @page :left {
+        margin-left: 0;
+    }
+
+    @page :right {
+        margin-right: 0;
+    }
+
+    /* Force single page */
+    html, body, #resume-container {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* Compact layout for PDF */
+    #resume-header {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #resume-summary {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #resume-education, #resume-projects-section, #resume-certifications-section {
+        margin-bottom: 0.5rem;
+    }
+
+    .education-item, .project-item {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    /* Ensure all content fits on one page */
+    #resume-body {
+        display: flex;
+        gap: 1rem;
+    }
+
+    #resume-main {
+        flex: 3;
+    }
+
+    #resume-sidebar {
+        flex: 1;
     }
 }
 

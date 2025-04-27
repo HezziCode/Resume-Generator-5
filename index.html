@@ -1,102 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.H Resume Generator</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResumeGen Pro</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/feather-icons"></script>
-</head>
-<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
     <div class="container">
-        <div id="form-container">
-            <h1 id="main-heading">Resume Generator</h1>
-            <form id="resume-form">
-                <div class="form-section" id="personal-info">
-                    <h2>Personal Information</h2>
-                    <div class="input-group">
-                        <i data-feather="user"></i>
-                        <input type="text" id="name" name="name" placeholder="Full Name" required>
-                    </div>
-                    <div class="input-group">
-                        <i data-feather="mail"></i>
-                        <input type="email" id="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="input-group">
-                        <i data-feather="phone"></i>
-                        <input type="tel" id="phone" name="phone" placeholder="Phone" required>
-                    </div>
-                    <div class="input-group">
-                        <i data-feather="map-pin"></i>
-                        <input type="text" id="location" name="location" placeholder="Location" required>
-                    </div>
-                </div>
-                <div class="form-section" id="experience-education">
-                    <h2>Experience & Education</h2>
-                    <div class="input-group">
-                        <i data-feather="briefcase"></i>
-                        <textarea id="experience" name="experience" placeholder="Work Experience" required></textarea>
-                    </div>
-                    <div class="input-group">
-                        <i data-feather="book"></i>
-                        <textarea id="education" name="education" placeholder="Education" required></textarea>
-                    </div>
-                </div>
-                <div class="form-section" id="skills-photo">
-                    <h2>Skills & Photo</h2>
-                    <div class="input-group">
-                        <i data-feather="code"></i>
-                        <textarea id="skills" name="skills" placeholder="Skills (comma-separated)" required></textarea>
-                    </div>
-                    <div class="input-group">
-                        <i data-feather="image"></i>
-                        <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
-                        <label for="profile-picture" class="file-label">Choose a file</label>
-                    </div>
-                </div>
-                <button type="submit" id="generate-resume">Generate Resume</button>
-            </form>
+      <div id="form-container">
+        <h1 id="main-heading">Resume Builder</h1>
+        <p class="tagline">
+          Create a professional, ATS-friendly resume in minutes
+        </p>
+
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress" id="form-progress"></div>
+          </div>
+          <div class="step-indicators">
+            <div class="step active" data-step="1">1</div>
+            <div class="step" data-step="2">2</div>
+            <div class="step" data-step="3">3</div>
+            <div class="step" data-step="4">4</div>
+          </div>
         </div>
-        <div id="resume-container" class="hidden">
-            <div id="resume-content">
-                <div id="resume-header">
-                    <div id="resume-personal-info">
-                        <h2 id="resume-name"></h2>
-                        <p id="resume-contact"></p>
-                        <p id="resume-location"></p>
-                    </div>
-                    <img id="resume-picture" alt="Profile Picture">
+
+        <form id="resume-form">
+          <!-- Step 1: Basic Information -->
+          <div class="form-step" id="step-1">
+            <div class="form-section">
+              <h2>Basic Information</h2>
+              <div class="input-group">
+                <i data-feather="user"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Full Name"
+                    required
+                  />
+                  <p class="input-tip">
+                    Your full professional name as you want it to appear on your
+                    resume
+                  </p>
                 </div>
-                <div id="resume-body">
-                    <div id="resume-main">
-                        <div id="resume-experience">
-                            <h3><i data-feather="briefcase"></i> Work Experience</h3>
-                            <p id="resume-experience-content"></p>
-                        </div>
-                        <div id="resume-education">
-                            <h3><i data-feather="book"></i> Education</h3>
-                            <p id="resume-education-content"></p>
-                        </div>
-                    </div>
-                    <div id="resume-sidebar">
-                        <div id="resume-skills">
-                            <h3><i data-feather="code"></i> Skills</h3>
-                            <ul id="resume-skills-list"></ul>
-                        </div>
-                    </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="mail"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  />
+                  <p class="input-tip">Use a professional email address</p>
                 </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="phone"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Phone"
+                    required
+                  />
+                  <p class="input-tip">
+                    Include country code if applying internationally
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="map-pin"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="Location"
+                    required
+                  />
+                  <p class="input-tip">
+                    City, State/Province, Country (e.g., "New York, NY, USA")
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="briefcase"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="job-title"
+                    name="job-title"
+                    placeholder="Desired Job Title"
+                    required
+                  />
+                  <p class="input-tip">
+                    The position you're targeting (e.g., "Senior Software
+                    Engineer")
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="link"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="portfolio"
+                    name="portfolio"
+                    placeholder="Portfolio/Website URL"
+                  />
+                  <p class="input-tip">
+                    Example: "yourname.com" (https:// will be added automatically)
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="linkedin"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="linkedin"
+                    name="linkedin"
+                    placeholder="LinkedIn Profile URL"
+                  />
+                  <p class="input-tip">
+                    Example: "linkedin.com/in/yourname" (https:// will be added automatically)
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="github"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="github"
+                    name="github"
+                    placeholder="GitHub Profile URL"
+                  />
+                  <p class="input-tip">
+                    Example: "github.com/yourname" (NOT "github/yourname")
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="twitter"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="twitter"
+                    name="twitter"
+                    placeholder="Twitter Profile URL (optional)"
+                  />
+                  <p class="input-tip">
+                    Example: "twitter.com/yourname" or "x.com/yourname"
+                  </p>
+                </div>
+              </div>
+              <div class="input-group">
+                <i data-feather="image"></i>
+                <div class="input-wrapper">
+                  <input
+                    type="file"
+                    id="profile-picture"
+                    name="profile-picture"
+                    accept="image/*"
+                  />
+                  <label for="profile-picture" class="file-label"
+                    >Choose a profile photo</label
+                  >
+                  <p class="input-tip">
+                    Professional headshot recommended (optional)
+                  </p>
+                  <div id="file-name-display" class="file-name-display"></div>
+                </div>
+              </div>
             </div>
-            <div id="resume-actions">
-                <button id="download-pdf"><i data-feather="download"></i> Download PDF</button>
-                <button id="share-resume"><i data-feather="share-2"></i> Share Resume</button>
-                <button id="edit-resume"><i data-feather="edit"></i> Edit Resume</button>
+            <div class="form-navigation">
+              <button type="button" class="next-btn">
+                Next: Professional Summary
+              </button>
             </div>
+          </div>
+
+          <!-- Step 2: Professional Summary -->
+          <div class="form-step hidden" id="step-2">
+            <div class="form-section">
+              <h2>Professional Summary</h2>
+              <p class="section-description">
+                Provide a compelling overview of your professional background
+                and key strengths (3-5 bullet points)
+              </p>
+
+              <div class="input-group">
+                <i data-feather="file-text"></i>
+                <div class="input-wrapper">
+                  <textarea
+                    id="summary"
+                    name="summary"
+                    placeholder="Professional Summary (100-150 words recommended)"
+                    required
+                    maxlength="500"
+                  ></textarea>
+                  <p class="input-tip">
+                    Example: "Results-driven software engineer with 3+ years of experience
+                    in full-stack development and cloud architecture. Proficient in JavaScript,
+                    React, Node.js, and AWS. Passionate about creating efficient, scalable solutions
+                    that solve real-world problems. Experienced in agile methodologies and
+                    collaborative development environments."
+                  </p>
+                  <div class="word-count"><span id="summary-word-count">0</span>/150 words</div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <i data-feather="target"></i>
+                <div class="input-wrapper">
+                  <textarea
+                    id="career-objective"
+                    name="career-objective"
+                    placeholder="Career Objective"
+                  ></textarea>
+                  <p class="input-tip">
+                    Example: "Seeking a challenging position as a Senior Developer where I can
+                    leverage my expertise in cloud technologies to drive innovation..."
+                  </p>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="prev-btn">Previous</button>
+              <button type="button" class="next-btn">
+                Next: Education
+              </button>
+            </div>
+          </div>
+
+
+
+          <!-- Step 3: Education -->
+          <div class="form-step hidden" id="step-3">
+            <div class="form-section">
+              <h2>Education & Certifications</h2>
+              <p class="section-description">
+                List your educational background and relevant certifications
+              </p>
+
+              <div id="education-entries">
+                <div class="education-entry">
+                  <div class="input-group">
+                    <i data-feather="home"></i>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        name="college-1"
+                        placeholder="College Name"
+                      />
+                      <p class="input-tip">
+                        Example: "Government Degree College"
+                      </p>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <i data-feather="bookmark"></i>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        name="major-1"
+                        placeholder="College Major"
+                      />
+                      <p class="input-tip">
+                        Example: "Pre-Engineering" or "Arts/Science"
+                      </p>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <i data-feather="book"></i>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        name="institution-1"
+                        placeholder="University Name (if applicable)"
+                      />
+                      <p class="input-tip">
+                        Example: "NED University of Engineering & Technology"
+                      </p>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <i data-feather="award"></i>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        name="degree-1"
+                        placeholder="Degree Name"
+                      />
+                      <p class="input-tip">
+                        Example: "Bachelor of Science in Computer Science"
+                      </p>
+                    </div>
+                  </div>
+                  <div class="date-range">
+                    <div class="input-group">
+                      <i data-feather="calendar"></i>
+                      <div class="input-wrapper">
+                        <input type="month" name="edu-start-1" required />
+                        <p class="input-tip">Start Date</p>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="calendar"></i>
+                      <div class="input-wrapper">
+                        <input type="month" name="edu-end-1" />
+                        <p class="input-tip">
+                          End Date (leave blank if in progress)
+                        </p>
+                      </div>
+                    </div>
+                    <div class="current-education">
+                      <input
+                        type="checkbox"
+                        id="current-edu-1"
+                        name="current-edu-1"
+                      />
+                      <label for="current-edu-1">In Progress</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" id="add-education" class="add-btn">
+                <i data-feather="plus"></i> Add Another Education/Certification
+              </button>
+
+              <div class="certifications-section">
+                <h3>Professional Certifications</h3>
+                <p class="section-description">
+                  List any professional certifications you've earned
+                </p>
+
+                <div id="certification-entries">
+                  <div class="certification-entry">
+                    <div class="input-group">
+                      <i data-feather="award"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="text"
+                          name="certification-1"
+                          placeholder="Certification Name"
+                        />
+                        <p class="input-tip">
+                          Example: "AWS Certified Solutions Architect" or "Google Cloud Professional"
+                        </p>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="briefcase"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="text"
+                          name="certification-issuer-1"
+                          placeholder="Issuing Organization"
+                        />
+                        <p class="input-tip">
+                          Example: "Amazon Web Services" or "Google"
+                        </p>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="calendar"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="month"
+                          name="certification-date-1"
+                        />
+                        <p class="input-tip">Date Earned</p>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="link"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="url"
+                          name="certification-url-1"
+                          placeholder="Credential URL (optional)"
+                        />
+                        <p class="input-tip">
+                          Link to verify your certification
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" id="add-certification" class="add-btn">
+                  <i data-feather="plus"></i> Add Another Certification
+                </button>
+              </div>
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="prev-btn">Previous</button>
+              <button type="button" class="next-btn">Next: Projects & Skills</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Projects & Skills -->
+          <div class="form-step hidden" id="step-4">
+            <div class="form-section">
+              <h2>Projects & Skills</h2>
+              <p class="section-description">
+                Add your projects, technical and soft skills, and languages
+              </p>
+
+              <div class="skills-section">
+                <h3>Projects</h3>
+                <div id="project-entries">
+                  <div class="project-entry">
+                    <div class="input-group">
+                      <i data-feather="folder"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="text"
+                          name="project-1-name"
+                          placeholder="Project Name"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="link"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="text"
+                          name="project-1-url"
+                          placeholder="Project URL (optional)"
+                        />
+                        <p class="input-tip">
+                          Example: "my-portfolio-brown-beta-84.vercel.app" (https:// will be added automatically)
+                        </p>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="tag"></i>
+                      <div class="input-wrapper">
+                        <input
+                          type="text"
+                          name="project-1-type"
+                          placeholder="Project Type"
+                        />
+                        <p class="input-tip">
+                          Example: "Web App", "Mobile App", "Machine Learning", "Game Development"
+                        </p>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <i data-feather="file-text"></i>
+                      <div class="input-wrapper">
+                        <textarea
+                          name="project-1-description"
+                          placeholder="Project Description"
+                        ></textarea>
+                        <p class="input-tip">
+                          Briefly describe the project, your role, and technologies used
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" id="add-project" class="add-btn">
+                  <i data-feather="plus"></i> Add Another Project
+                </button>
+              </div>
+
+              <div class="skills-section">
+                <h3>Technical Skills</h3>
+                <div class="input-group">
+                  <i data-feather="code"></i>
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      id="technical-skills"
+                      name="technical-skills"
+                      placeholder="Technical Skills (comma-separated)"
+                      required
+                    />
+                    <p class="input-tip">
+                      Example: "JavaScript, React, Node.js, SQL, AWS, Git"
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="skills-section">
+                <h3>Soft Skills</h3>
+                <div class="input-group">
+                  <i data-feather="users"></i>
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      id="soft-skills"
+                      name="soft-skills"
+                      placeholder="Soft Skills (comma-separated)"
+                      required
+                    />
+                    <p class="input-tip">
+                      Example: "Leadership, Communication, Problem-solving,
+                      Teamwork"
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="skills-section">
+                <h3>Languages</h3>
+                <div class="input-group">
+                  <i data-feather="globe"></i>
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      id="languages"
+                      name="languages"
+                      placeholder="Languages (optional)"
+                    />
+                    <p class="input-tip">
+                      Example: "English (Native), Spanish (Fluent), French
+                      (Intermediate)"
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="prev-btn">Previous</button>
+              <button type="submit" id="generate-resume" class="submit-btn">
+                Generate Resume
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Resume Output Container -->
+      <div id="resume-container" class="hidden">
+        <div id="resume-content">
+          <div id="resume-header">
+            <div id="resume-personal-info">
+              <h1 id="resume-name"></h1>
+              <h2 id="resume-job-title"></h2>
+              <p id="resume-contact"></p>
+              <p id="resume-location"></p>
+              <div id="resume-social-links"></div>
+            </div>
+            <img id="resume-picture" alt="Profile Picture" />
+          </div>
+
+          <div id="resume-summary">
+            <h3>Professional Summary</h3>
+            <p id="resume-summary-content"></p>
+            <ul id="resume-highlights"></ul>
+          </div>
+
+          <div id="resume-objective-section" class="hidden">
+            <h3>Career Objective</h3>
+            <p id="resume-objective"></p>
+          </div>
+
+          <div id="resume-body">
+            <div id="resume-main">
+              <div id="resume-education">
+                <h3><i data-feather="book"></i> Education</h3>
+                <div id="resume-education-entries"></div>
+              </div>
+
+              <div id="resume-projects-section">
+                <h3><i data-feather="folder"></i> Projects</h3>
+                <div id="resume-projects"></div>
+              </div>
+
+              <div id="resume-certifications-section" class="hidden">
+                <h3><i data-feather="award"></i> Certifications</h3>
+                <div id="resume-certifications"></div>
+              </div>
+            </div>
+
+            <div id="resume-sidebar">
+              <div id="resume-skills">
+                <h3><i data-feather="code"></i> Technical Skills</h3>
+                <ul id="resume-technical-skills-list" class="skills-list"></ul>
+
+                <h3><i data-feather="users"></i> Soft Skills</h3>
+                <ul id="resume-soft-skills-list" class="skills-list"></ul>
+
+                <div id="resume-languages-section">
+                  <h3><i data-feather="globe"></i> Languages</h3>
+                  <ul id="resume-languages-list" class="skills-list"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+
+        <div id="resume-actions">
+          <button id="download-pdf">
+            <i data-feather="download"></i> Download PDF
+          </button>
+          <button id="edit-resume">
+            <i data-feather="edit"></i> Edit Resume
+          </button>
+        </div>
+      </div>
+
     <script src="script.js"></script>
     <script>
-        feather.replace();
+      feather.replace();
+
+      // The download-pdf button is now handled by the ResumeGenerator.downloadPDF method
+      // which uses jsPDF to create a PDF with clickable links
     </script>
-</body>
+  </body>
 </html>
