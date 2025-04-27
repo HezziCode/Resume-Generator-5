@@ -66,11 +66,17 @@ A professional, ATS-friendly resume builder that helps you create stunning resum
 
 ## 📱 Mobile Responsiveness
 
-ResumeGen Pro is fully responsive and works on devices of all sizes:
+ResumeGen Pro is fully responsive and optimized for all devices:
 
-- Desktop: Full-featured experience
-- Tablet: Optimized layout for medium screens
-- Mobile: Streamlined interface for on-the-go resume creation
+- **Desktop**: Full-featured experience with spacious layout
+- **Tablet**: Optimized layout with adjusted spacing and element sizes
+- **Mobile**: Completely redesigned interface for small screens with:
+  - Touch-friendly buttons and inputs
+  - Simplified navigation
+  - Optimized form layout
+  - Properly scaled text and images
+  - Full functionality preserved on small screens
+  - Support for both portrait and landscape orientations
 
 ## 🔗 Link Handling
 
