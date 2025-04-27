@@ -2,7 +2,9 @@
 
 A professional, ATS-friendly resume builder that helps you create stunning resumes in minutes.
 
-![ResumeGen Pro](https://via.placeholder.com/800x400?text=ResumeGen+Pro)
+![ResumeGen Pro](./assets/huzaifadev.png)
+
+<!-- Add a screenshot of your application interface to the assets folder -->
 
 ## 🚀 Features
 
@@ -34,13 +36,15 @@ A professional, ATS-friendly resume builder that helps you create stunning resum
 ## 🔧 Installation
 
 1. Clone the repository:
+
    ```bash
-   git clone https://github.com/yourusername/resumegen-pro.git
+   git clone https://github.com/HezziCode/Resume-Generator-5.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
-   cd resumegen-pro
+   cd Resume-Generator-5
    ```
 
 3. Open `index.html` in your browser or set up a local server.
@@ -63,6 +67,7 @@ A professional, ATS-friendly resume builder that helps you create stunning resum
 ## 📱 Mobile Responsiveness
 
 ResumeGen Pro is fully responsive and works on devices of all sizes:
+
 - Desktop: Full-featured experience
 - Tablet: Optimized layout for medium screens
 - Mobile: Streamlined interface for on-the-go resume creation
